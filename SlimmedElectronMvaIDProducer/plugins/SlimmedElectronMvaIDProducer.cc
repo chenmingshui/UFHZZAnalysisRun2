@@ -150,8 +150,8 @@ SlimmedElectronMvaIDProducer::produce(edm::Event& iEvent, const edm::EventSetup&
     }
     
     // add the electrons to the event output
-    std::auto_ptr<std::vector<pat::Electron> > ptr(patElectrons);
-    iEvent.put(ptr);
+    std::unique_ptr<std::vector<pat::Electron> > ptr(patElectrons);
+    iEvent.put(std::move(ptr));
     
 }
 

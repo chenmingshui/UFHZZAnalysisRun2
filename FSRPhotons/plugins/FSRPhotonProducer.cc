@@ -53,7 +53,7 @@ FSRPhotonProducer::~FSRPhotonProducer()
 
 void FSRPhotonProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
-  std::auto_ptr<reco::PFCandidateCollection> comp( new reco::PFCandidateCollection );
+  std::unique_ptr<reco::PFCandidateCollection> comp( new reco::PFCandidateCollection );
 
   edm::Handle<reco::CandidateView> cands;
   iEvent.getByToken(srcCands_, cands);
@@ -86,7 +86,7 @@ void FSRPhotonProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
       }
     }
   }
-  iEvent.put( comp );
+  iEvent.put( std::move(comp) );
 }
 
 

@@ -254,8 +254,8 @@ KalmanMuonCalibrationsProducer::produce(edm::Event& iEvent, const edm::EventSetu
    }
    
    // add the muons to the event output
-   std::auto_ptr<std::vector<pat::Muon> > ptr(patMuons);
-   iEvent.put(ptr);
+   std::unique_ptr<std::vector<pat::Muon> > ptr(patMuons);
+   iEvent.put(std::move(ptr));
    
 }
 

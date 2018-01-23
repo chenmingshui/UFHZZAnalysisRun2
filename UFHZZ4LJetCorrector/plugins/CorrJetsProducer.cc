@@ -52,7 +52,7 @@ void CorrJetsProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
     using namespace edm;
     using namespace std;
 
-    auto_ptr< pat::JetCollection > corrJets( new pat::JetCollection );
+    unique_ptr< pat::JetCollection > corrJets( new pat::JetCollection );
 
     Handle<pat::JetCollection>   jets;
     iEvent.getByToken(jetToken_, jets);
@@ -95,7 +95,7 @@ void CorrJetsProducer::produce(edm::Event& iEvent, const edm::EventSetup& iSetup
         cloneJet->addUserFloat("ak8PFJetsCHSCorrPrunedMass", corrMass );
         corrJets->push_back( *cloneJet );
     } 
-    iEvent.put(corrJets);
+    iEvent.put(std::move(corrJets));
 }
 
 DEFINE_FWK_MODULE(CorrJetsProducer);

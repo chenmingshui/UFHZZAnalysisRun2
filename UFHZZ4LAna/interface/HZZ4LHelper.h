@@ -327,7 +327,7 @@ std::vector<pat::Electron> HZZ4LHelper::goodElectrons2015_noIso_noBdt(std::vecto
         if( abs(getSIP3D(Electrons[i])) < sip3dCut) {
             if (fabs(Electrons[i].gsfTrack()->dxy(vertex->position())) < dxyCut) {
                 if (fabs(Electrons[i].gsfTrack()->dz(vertex->position())) < dzCut ) {                  
-                    int misHits = Electrons[i].gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::MISSING_INNER_HITS); // for miniAOD
+                    int misHits = Electrons[i].gsfTrack()->hitPattern().numberOfAllHits(reco::HitPattern::MISSING_INNER_HITS); // for miniAOD
                     if (misHits < missingHitsCuts) { bestElectrons.push_back(Electrons[i]);}                  
                 }
             }
@@ -617,7 +617,7 @@ bool HZZ4LHelper::passTight_Id_SUS(pat::Electron electron, std::string elecID, c
     if( vtxFitConversion )  return false;
 
     int missingHitsCuts = 1;
-    int misHits = electron.gsfTrack()->hitPattern().numberOfHits(reco::HitPattern::MISSING_INNER_HITS);
+    int misHits = electron.gsfTrack()->hitPattern().numberOfAllHits(reco::HitPattern::MISSING_INNER_HITS);
     if (misHits >= missingHitsCuts) return false;
     
     if (electron.isEB()) {

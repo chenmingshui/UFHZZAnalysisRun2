@@ -76,7 +76,7 @@ void PatJetReCorrector::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
 
     FactorizedJetCorrector corrector(parameters);
 
-    std::auto_ptr<pat::JetCollection> pOut(new pat::JetCollection);
+    std::unique_ptr<pat::JetCollection> pOut(new pat::JetCollection);
     pOut->reserve(jets->size());
 
     for(edm::View<pat::Jet>::const_iterator itJet = jets->begin(), edJet = jets->end(); itJet != edJet; ++itJet) {    
@@ -129,7 +129,7 @@ void PatJetReCorrector::produce(edm::Event& iEvent, const edm::EventSetup& iSetu
         pOut->push_back(scaledJet);
     }
 
-    iEvent.put(pOut);
+    iEvent.put(std::move(pOut));
 }
 
 PatJetReCorrector::~PatJetReCorrector() { }
