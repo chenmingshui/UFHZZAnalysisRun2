@@ -31,4 +31,4 @@ git clone https://github.com/chenmingshui/HiggsAnalysis-ZZMatrixElement.git -b f
 
 (cd ZZMatrixElement ; ./setup.sh -j 12)
 
-scram b -j 8
+scram b 
